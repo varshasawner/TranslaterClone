@@ -19,28 +19,33 @@ export default function Translate() {
   }, []);
 
 	const translate = () => {
-    const params = new URLSearchParams();
-    params.append('q', input);
-    params.append('source', from);
-    params.append('target', to);
-    params.append('api_key', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
+    // const params = new URLSearchParams();
+    // params.append('q', input);
+    // params.append('source', from);
+    // params.append('target', to);
+    // params.append('api_key', 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx');
 
 		fetch("https://libretranslate.de/translate",{
-			method: "POST",
+			method: "post",
 			headers :{
 				'Accept' : 'application/json',
 				'Content-Type' : 'application/x-www-form-urlencoded'
 			},
-      body : { params }
+      body :  ({
+        q : input,
+        source : from,
+        target : to,
+        api_key : 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+      }) 
 		})
 		.then((res) => {
-      console.log(res);
-			// return res.json();
+      console.log(res.json());
+			return res.json();
 		})
-		// .then((res) => {
-		// 	console.log(res.translatedText);
-		// 	// setOutput(res)
-		// });
+		.then((res) => {
+			console.log(res);
+			// setOutput(res)
+		});
 	}
 
   return (
